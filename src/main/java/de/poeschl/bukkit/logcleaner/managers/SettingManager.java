@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 public class SettingManager {
 
-    private static final String KEEP_DAYS_KEY = "keepLogsFromLastDays";
+    protected static final String KEEP_DAYS_KEY = "keepLogsFromLastDays";
 
     private FileConfiguration config;
     private Logger logger;
