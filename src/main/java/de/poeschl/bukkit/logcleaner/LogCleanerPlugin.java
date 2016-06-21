@@ -6,11 +6,6 @@ import de.poeschl.bukkit.logcleaner.threads.LogCleanerThread;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 public class LogCleanerPlugin extends JavaPlugin {
 
     private SettingManager settingManager;

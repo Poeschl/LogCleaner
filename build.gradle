@@ -1,0 +1,39 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+repositories {
+
+    maven { url "http://repo.bukkit.org/content/groups/public" }
+    mavenCentral()
+}
+
+group = 'de.poeschl.bukkit'
+version = '1.0-SNAPSHOT'
+
+description = """LogCleaner"""
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+processResources {
+    filter ReplaceTokens, tokens: [
+            "name"   : project.name,
+            "version": project.version
+    ]
+}
+
+jar {
+    manifest {
+        attributes("Project": project.name,
+                "Version": project.version)
+    }
+}
+
+dependencies {
+    compile 'org.bukkit:bukkit:1.7.9-R0.2'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-all:1.8.4'
+
+}
