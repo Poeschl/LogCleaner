@@ -6,7 +6,11 @@ import de.poeschl.bukkit.logcleaner.threads.LogCleanerThread;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+
 public class LogCleanerPlugin extends JavaPlugin {
+
+    private static final File LOG_FOLDER = new File("./" + FileHelper.LOGS_FOLDER_NAME);
 
     private SettingManager settingManager;
     private FileHelper fileHelper;
@@ -30,6 +34,6 @@ public class LogCleanerPlugin extends JavaPlugin {
 
     private void activateLogCleaner() {
         getLogger().info("Starting LogCleanerPlugin Thread");
-       new LogCleanerThread(fileHelper,settingManager.getKeepDays()).start();
+        new LogCleanerThread(fileHelper, settingManager.getKeepDays(), LOG_FOLDER).start();
     }
 }
