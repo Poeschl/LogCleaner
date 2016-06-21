@@ -7,6 +7,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.Date;
 
 public class LogCleanerPlugin extends JavaPlugin {
 
@@ -14,6 +15,7 @@ public class LogCleanerPlugin extends JavaPlugin {
 
     private SettingManager settingManager;
     private FileHelper fileHelper;
+    private LogCleanerThread logCleanerThread;
 
     @Override
     public void onEnable() {
@@ -26,14 +28,16 @@ public class LogCleanerPlugin extends JavaPlugin {
         }
         settingManager = new SettingManager(getConfig(), getLogger());
         fileHelper = new FileHelper(getLogger());
+        logCleanerThread = new LogCleanerThread(fileHelper, settingManager.getKeepDays(), LOG_FOLDER);
 
         getLogger().info(pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!");
 
         activateLogCleaner();
     }
 
-    private void activateLogCleaner() {
+    protected void activateLogCleaner() {
         getLogger().info("Starting LogCleanerPlugin Thread");
-        new LogCleanerThread(fileHelper, settingManager.getKeepDays(), LOG_FOLDER).start();
+        logCleanerThread.setNow(new Date());
+        logCleanerThread.start();
     }
 }
