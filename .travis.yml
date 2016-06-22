@@ -1,0 +1,12 @@
+language: java
+sudo: false
+
+jdk:
+  - oraclejdk8
+
+cache:
+  directories:
+    - $HOME/.gradle/
+
+script:
+    - ./gradlew check jacocoTestReport coveralls

@@ -10,17 +10,15 @@ import java.util.logging.Logger;
 
 public class FileHelper {
 
-    private static final String LOGS_FOLDER_NAME = "logs";
+    public static final String LOGS_FOLDER_NAME = "logs";
 
     private final Logger logger;
-    private final File logFolder;
 
     public FileHelper(Logger logger) {
         this.logger = logger;
-        this.logFolder = new File("./" + LOGS_FOLDER_NAME);
     }
 
-    public List<File> getLogArchives() {
+    public List<File> getLogArchives(File logFolder) {
         FilenameFilter archiveFilter = new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {

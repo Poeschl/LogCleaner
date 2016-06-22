@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/logcleaner.iml" filepath="$PROJECT_DIR$/logcleaner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/logcleaner.iml" filepath="$PROJECT_DIR$/.idea/modules/logcleaner.iml" />
     </modules>
   </component>
 </project>

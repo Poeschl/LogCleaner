@@ -1,0 +1,61 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.6.3"
+    }
+}
+
+repositories {
+    maven { url "http://repo.bukkit.org/content/groups/public" }
+    jcenter()
+    mavenCentral()
+}
+
+group = 'de.poeschl.bukkit'
+version = '1.0-SNAPSHOT'
+
+description = """LogCleaner"""
+
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'com.github.kt3k.coveralls'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+processResources {
+    filter ReplaceTokens, tokens: [
+            "name"   : project.name,
+            "version": project.version
+    ]
+}
+
+jar {
+    manifest {
+        attributes("Project": project.name,
+                "Version": project.version)
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.enabled true
+    }
+}
+
+dependencies {
+    compile 'org.bukkit:bukkit:1.7.9-R0.2'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-all:1.8.4'
+    testCompile 'org.hamcrest:hamcrest-all:1.3'
+
+
+}
