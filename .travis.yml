@@ -3,10 +3,12 @@ sudo: false
 
 jdk:
   - oraclejdk8
-  - oraclejdk7
 
 cache:
   directories:
     - $HOME/.gradle/
 
-script: ./gradlew clean check
+before_script:
+    - ./gradlew clean
+script:
+    - ./gradlew check coveralls
