@@ -47,6 +47,12 @@ jacocoTestReport {
         xml.enabled true
         csv.enabled false
         html.enabled true
+
+        afterEvaluate {
+            classDirectories = files(classDirectories.files.collect {
+                fileTree(dir: it, exclude: ["**/InstanceFactory.*"])
+            })
+        }
     }
 }
 
@@ -54,7 +60,7 @@ dependencies {
     compile 'org.bukkit:bukkit:1.7.9-R0.2'
 
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-all:1.8.4'
+    testCompile 'org.mockito:mockito-all:1.10.19'
     testCompile 'org.hamcrest:hamcrest-all:1.3'
 
 
