@@ -1,6 +1,6 @@
-# LogCleaner [![Build Status](https://travis-ci.org/Poeschl/LogCleaner.svg?branch=master)](https://travis-ci.org/Poeschl/LogCleaner) [![Coverage Status](https://coveralls.io/repos/github/Poeschl/LogCleaner/badge.svg?branch=master)](https://coveralls.io/github/Poeschl/LogCleaner)
+# LogCleaner [![Travis master](https://img.shields.io/travis/Poeschl/LogCleaner/master.svg?maxAge=3600)](https://travis-ci.org/Poeschl/LogCleaner) [![Coveralls](https://img.shields.io/coveralls/Poeschl/LogCleaner/master.svg?maxAge=3600)](https://coveralls.io/github/Poeschl/LogCleaner)
 A plugin which removes old bukkit log archives from the log folder.
 
 ---
 
-[![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/Poeschl/LogCleaner/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Poeschl/LogCleaner/master/LICENSE)
