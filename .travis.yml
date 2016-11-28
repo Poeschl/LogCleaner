@@ -5,8 +5,8 @@ jdk:
   - oraclejdk8
 
 before_cache:
-  - find . -name "*.lock" -type f -delete
-  - find . -name "*.log" -type f -delete
+  - find $HOME/.gradle -name "*.lock" -type f -delete
+  - find $HOME/.gradle -name "*.log" -type f -delete
 
 cache:
   directories:
