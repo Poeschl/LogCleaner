@@ -7,11 +7,11 @@ jdk:
 before_cache:
   - find . -name "*.lock" -type f -delete
   - find . -name "*.log" -type f -delete
-  - rm -r $HOME/.gradle/daemon
 
 cache:
   directories:
-    - $HOME/.gradle/
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
 
 before_install:
   - chmod +x gradlew
