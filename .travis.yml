@@ -4,6 +4,11 @@ sudo: false
 jdk:
   - oraclejdk8
 
+before_cache:
+  - rm -fr $HOME/.gradle/**/*.lock
+  - rm -fr $HOME/.gradle/**/*.log
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
 cache:
   directories:
     - $HOME/.gradle/
