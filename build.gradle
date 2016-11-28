@@ -5,14 +5,12 @@ buildscript {
         jcenter()
         mavenCentral()
     }
-    dependencies {
-        classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.6.3"
-    }
 }
 
 plugins {
     id 'com.github.kt3k.coveralls' version '2.7.1'
     id 'net.researchgate.release' version '2.4.0'
+    id 'com.github.johnrengelman.shadow' version '1.2.4'
 }
 
 repositories {
@@ -40,6 +38,11 @@ jar {
     }
 }
 
+shadowJar {
+    configurations = [project.configurations.compile]
+    classifier = null
+}
+
 jacoco {
     toolVersion = "0.7.7.201606060606"
 }
@@ -58,7 +61,7 @@ jacocoTestReport {
 }
 
 dependencies {
-    compile 'org.bukkit:bukkit:1.7.9-R0.2'
+    compileOnly 'org.bukkit:bukkit:1.7.9-R0.2'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.10.19'

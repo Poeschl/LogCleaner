@@ -8,5 +8,20 @@ cache:
   directories:
     - $HOME/.gradle/
 
+before_install:
+  - chmod +x gradlew
+
 script:
-    - ./gradlew check jacocoTestReport coveralls
+  - ./gradlew check jacocoTestReport coveralls
+
+before_deploy:
+  - ./gradlew shadowJar
+
+deploy:
+  provider: releases
+  api_key: ${GH_TOKEN}
+  file: "**/libs/LogCleaner-*.jar"
+  file_glob: true
+  skip_cleanup: true
+  on:
+    tags: true
