@@ -40,10 +40,13 @@ jar {
     }
 }
 
+jacoco {
+    toolVersion = "0.7.7.201606060606"
+}
+
 jacocoTestReport {
     reports {
         xml.enabled true
-        csv.enabled false
         html.enabled true
 
         afterEvaluate {
