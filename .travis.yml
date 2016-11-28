@@ -5,9 +5,9 @@ jdk:
   - oraclejdk8
 
 before_cache:
-  - rm -fr $HOME/.gradle/**/*.lock
-  - rm -fr $HOME/.gradle/**/*.log
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+  - find . -name "*.lock" -type f -delete
+  - find . -name "*.log" -type f -delete
+  - rm -r $HOME/.gradle/daemon
 
 cache:
   directories:
