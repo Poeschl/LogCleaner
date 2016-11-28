@@ -5,6 +5,9 @@ buildscript {
         jcenter()
         mavenCentral()
     }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
 }
 
 plugins {
@@ -20,6 +23,7 @@ repositories {
 }
 
 apply plugin: 'java'
+apply plugin: "kotlin"
 apply plugin: 'jacoco'
 
 group = 'de.poeschl.bukkit'
@@ -62,6 +66,7 @@ jacocoTestReport {
 
 dependencies {
     compileOnly "org.bukkit:bukkit:$bukkit_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     testCompile "org.bukkit:bukkit:$bukkit_version"
     testCompile 'junit:junit:4.12'
