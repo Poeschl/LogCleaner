@@ -10,23 +10,21 @@ buildscript {
     }
 }
 
-repositories {
-    maven { url "http://repo.bukkit.org/content/groups/public" }
-    jcenter()
-    mavenCentral()
+plugins {
+    id 'com.github.kt3k.coveralls' version '2.7.1'
+    id 'net.researchgate.release' version '2.4.0'
 }
 
-group = 'de.poeschl.bukkit'
-version = '1.0'
-
-description = """LogCleaner"""
+repositories {
+    jcenter()
+    mavenCentral()
+    maven { url "http://maven.sk89q.com/repo/" }
+}
 
 apply plugin: 'java'
 apply plugin: 'jacoco'
-apply plugin: 'com.github.kt3k.coveralls'
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+group = 'de.poeschl.bukkit'
 
 processResources {
     filter ReplaceTokens, tokens: [
