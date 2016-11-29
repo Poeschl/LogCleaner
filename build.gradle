@@ -47,6 +47,10 @@ shadowJar {
     classifier = null
 }
 
+coveralls {
+    sourceDirs += ['src/main/kotlin']
+}
+
 jacoco {
     toolVersion = "0.7.7.201606060606"
 }
