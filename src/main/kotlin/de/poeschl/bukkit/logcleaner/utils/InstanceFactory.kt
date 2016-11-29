@@ -12,7 +12,7 @@ import java.io.File
 import java.util.logging.Logger
 
 open class InstanceFactory {
-    open internal fun createSettingsManager(config: FileConfiguration?, logger: Logger?): SettingsManager {
+    open internal fun createSettingsManager(config: FileConfiguration, logger: Logger): SettingsManager {
         return SettingsManagerImpl(config, logger)
     }
 

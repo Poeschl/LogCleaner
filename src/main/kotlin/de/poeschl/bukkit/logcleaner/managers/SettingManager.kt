@@ -16,17 +16,11 @@ interface SettingsManager {
     }
 }
 
-class SettingsManagerImpl(private var config: FileConfiguration?, private val logger: Logger?) : SettingsManager {
+class SettingsManagerImpl(private var config: FileConfiguration, private val logger: Logger) : SettingsManager {
 
     override val keepDays: Int
         get() {
-            if (config != null) {
-                val keepDays = config!!.getInt(KEEP_DAYS_KEY)
-                return keepDays
-            } else {
-                logger?.warning("Couldn't read keepdays property! No config is applied.")
-                return Int.MAX_VALUE
-            }
+            return config.getInt(KEEP_DAYS_KEY)
         }
 
     override fun updateConfig(config: FileConfiguration) {
