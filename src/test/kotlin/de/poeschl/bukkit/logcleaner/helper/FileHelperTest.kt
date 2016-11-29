@@ -1,14 +1,15 @@
 package de.poeschl.bukkit.logcleaner.helper
 
+import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockito_kotlin.verify
 import de.poeschl.bukkit.logcleaner.createDate
 import org.assertj.core.api.Assertions
 import org.assertj.core.util.DateUtil
 import org.junit.Test
-import org.mockito.ArgumentMatchers
-import org.mockito.Mockito.verify
 import java.io.File
+import java.io.FilenameFilter
 import java.util.*
 import java.util.logging.Logger
 
@@ -17,11 +18,12 @@ class FileHelperTest {
 
     @Test
     fun getLogArchives() {
-        val mockFolder: File = mock()
         val mockFileList = arrayOf(File("a.log.gz"), File("b.log.gz"))
         val voidLogger: Logger = mock()
         val testFileHelper = FileHelperImpl(voidLogger)
-        whenever(mockFolder.listFiles(ArgumentMatchers.any(java.io.FilenameFilter::class.java))).thenReturn(mockFileList)
+        val mockFolder: File = mock {
+            on { listFiles(any<FilenameFilter>()) } doReturn mockFileList
+        }
 
         val resultFiles = testFileHelper.getLogArchives(mockFolder)
 
@@ -30,11 +32,12 @@ class FileHelperTest {
 
     @Test
     fun getLogArchiveDate() {
-        val mockArchive: File = mock()
         val expectedDay = DateUtil.dayOfMonthOf(Calendar.getInstance().createDate(1234, Calendar.DECEMBER, 12))
         val voidLogger: Logger = mock()
         val testFileHelper = FileHelperImpl(voidLogger)
-        whenever(mockArchive.name).thenReturn("1234-12-12-9.log.gz")
+        val mockArchive: File = mock {
+            on { name } doReturn "1234-12-12-9.log.gz"
+        }
 
         val resultDay = DateUtil.dayOfMonthOf(testFileHelper.getLogArchiveDate(mockArchive))
 
