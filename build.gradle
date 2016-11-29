@@ -68,6 +68,10 @@ jacocoTestReport {
     }
 }
 
+release {
+    preTagCommitMessage = '[Gradle Release Plugin] - Version: '
+}
+
 dependencies {
     compileOnly "org.bukkit:bukkit:$bukkit_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
