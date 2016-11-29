@@ -1,22 +1,22 @@
 package de.poeschl.bukkit.logcleaner.managers
 
 import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.whenever
 import org.assertj.core.api.Assertions
 import org.bukkit.configuration.file.FileConfiguration
 import org.junit.Test
-import org.mockito.Mockito.`when`
 import java.util.logging.Logger
 
-class SettingManagerTest {
+class SettingsManagerTest {
 
     @Test
     fun updateConfig() {
         val voidLogger: Logger = mock()
         val mockedConfig: FileConfiguration = mock()
-        `when`(mockedConfig.getInt(SettingManager.KEEP_DAYS_KEY)).thenReturn(2)
+        whenever(mockedConfig.getInt(SettingsManager.KEEP_DAYS_KEY)).thenReturn(2)
         val newConfig: FileConfiguration = mock()
-        `when`(newConfig.getInt(SettingManager.KEEP_DAYS_KEY)).thenReturn(10)
-        val testSettingsManager = SettingManager(mockedConfig, voidLogger)
+        whenever(newConfig.getInt(SettingsManager.KEEP_DAYS_KEY)).thenReturn(10)
+        val testSettingsManager = SettingsManagerImpl(mockedConfig, voidLogger)
 
         testSettingsManager.updateConfig(newConfig)
 
@@ -27,9 +27,9 @@ class SettingManagerTest {
     fun getKeepDays() {
         val voidLogger: Logger = mock()
         val mockedConfig: FileConfiguration = mock()
-        `when`(mockedConfig.getInt(SettingManager.KEEP_DAYS_KEY)).thenReturn(2)
+        whenever(mockedConfig.getInt(SettingsManager.KEEP_DAYS_KEY)).thenReturn(2)
 
-        val testSettingsManager = SettingManager(mockedConfig, voidLogger)
+        val testSettingsManager = SettingsManagerImpl(mockedConfig, voidLogger)
 
         Assertions.assertThat(testSettingsManager.keepDays).isEqualTo(2)
     }

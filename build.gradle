@@ -70,9 +70,9 @@ dependencies {
 
     testCompile "org.bukkit:bukkit:$bukkit_version"
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.2.15'
+    testCompile 'org.mockito:mockito-core:2.2.22'
     testCompile 'org.assertj:assertj-core:3.5.2'
-    testCompile 'com.nhaarman:mockito-kotlin:0.11.0'
+    testCompile 'com.nhaarman:mockito-kotlin:0.12.2'
 
 
 }

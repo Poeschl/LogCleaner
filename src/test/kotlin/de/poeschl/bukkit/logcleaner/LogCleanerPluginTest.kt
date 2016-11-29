@@ -1,42 +1,38 @@
 package de.poeschl.bukkit.logcleaner
 
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.never
-import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.*
 import de.poeschl.bukkit.logcleaner.helper.FileHelper
-import de.poeschl.bukkit.logcleaner.managers.SettingManager
-import de.poeschl.bukkit.logcleaner.threads.LogCleanerThread
+import de.poeschl.bukkit.logcleaner.managers.SettingsManager
+import de.poeschl.bukkit.logcleaner.threads.LogCleanerRunnable
 import de.poeschl.bukkit.logcleaner.utils.InstanceFactory
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.plugin.PluginDescriptionFile
-import org.bukkit.plugin.java.JavaPlugin
 import org.junit.Test
-import org.mockito.ArgumentMatchers
-import org.mockito.Mockito.`when`
-import java.io.File
 import java.util.*
 import java.util.logging.Logger
+
 
 class LogCleanerPluginTest {
 
     @Test
     fun onEnable() {
         //WHEN
-        val mockedInstances: InstanceFactory = mock()
-        val mockedConfig: FileConfiguration = mock()
-        val dummyKeys = setOf("dummy")
-        `when`(mockedInstances.createSettingsManager(ArgumentMatchers.any(FileConfiguration::class.java), ArgumentMatchers.any(Logger::class.java))).thenReturn(mock())
-        `when`(mockedInstances.getLogger(ArgumentMatchers.any(JavaPlugin::class.java))).thenReturn(mock())
-        `when`(mockedInstances.createFileHelper(ArgumentMatchers.any(Logger::class.java))).thenReturn(mock())
-        `when`(mockedInstances.createLogCleanerThread(ArgumentMatchers.any(FileHelper::class.java), ArgumentMatchers.any(SettingManager::class.java), ArgumentMatchers.any(File::class.java)))
-                .thenReturn(mock())
+        val mockedConfig: FileConfiguration = mock {
+            on { getKeys(any()) } doReturn setOf("dummy")
+        }
+        val mockedInstances: InstanceFactory = mock {
+            on { createSettingsManager(any(), any()) } doReturn mock<SettingsManager>()
+            on { getLogger(any()) } doReturn mock<Logger>()
+            on { createFileHelper(any()) } doReturn mock<FileHelper>()
+            on { createLogCleanerRunnable(any(), any(), any()) } doReturn mock<LogCleanerRunnable>()
+        }
 
-        val pluginToTest: LogCleanerPlugin = mock()
-        `when`(pluginToTest.config).thenReturn(mockedConfig)
-        `when`(mockedConfig.getKeys(ArgumentMatchers.anyBoolean())).thenReturn(dummyKeys)
-        `when`(pluginToTest.instanceFactory).thenReturn(mockedInstances)
-        `when`(pluginToTest.info).thenReturn(PluginDescriptionFile("", "", ""))
-        `when`(pluginToTest.onEnable()).thenCallRealMethod()
+        val pluginToTest: LogCleanerPlugin = mock {
+            on { config } doReturn mockedConfig
+            on { createInstanceFactory() } doReturn mockedInstances
+            on { info } doReturn PluginDescriptionFile("", "", "")
+            on { onEnable() }.thenCallRealMethod()
+        }
 
         //THEN
         pluginToTest.onEnable()
@@ -52,19 +48,20 @@ class LogCleanerPluginTest {
     @Test
     fun onEnableFirstTime() {
         //WHEN
-        val mockedInstances: InstanceFactory = mock()
         val mockedConfig: FileConfiguration = mock()
-        `when`(mockedInstances.createSettingsManager(ArgumentMatchers.any(FileConfiguration::class.java), ArgumentMatchers.any(Logger::class.java))).thenReturn(mock())
-        `when`(mockedInstances.getLogger(ArgumentMatchers.any(JavaPlugin::class.java))).thenReturn(mock())
-        `when`(mockedInstances.createFileHelper(ArgumentMatchers.any(Logger::class.java))).thenReturn(mock())
-        `when`(mockedInstances.createLogCleanerThread(ArgumentMatchers.any(FileHelper::class.java), ArgumentMatchers.any(SettingManager::class.java), ArgumentMatchers.any(File::class.java)))
-                .thenReturn(mock())
+        val mockedInstances: InstanceFactory = mock {
+            on { createSettingsManager(any(), any()) } doReturn mock<SettingsManager>()
+            on { getLogger(any()) } doReturn mock<Logger>()
+            on { createFileHelper(any()) } doReturn mock<FileHelper>()
+            on { createLogCleanerRunnable(any(), any(), any()) } doReturn mock<LogCleanerRunnable>()
+        }
 
-        val pluginToTest: LogCleanerPlugin = mock()
-        `when`(pluginToTest.config).thenReturn(mockedConfig)
-        `when`(pluginToTest.instanceFactory).thenReturn(mockedInstances)
-        `when`(pluginToTest.info).thenReturn(PluginDescriptionFile("", "", ""))
-        `when`(pluginToTest.onEnable()).thenCallRealMethod()
+        val pluginToTest: LogCleanerPlugin = mock {
+            on { config } doReturn mockedConfig
+            on { createInstanceFactory() } doReturn mockedInstances
+            on { info } doReturn PluginDescriptionFile("", "", "")
+            on { onEnable() }.thenCallRealMethod()
+        }
 
         //THEN
         pluginToTest.onEnable()
@@ -78,18 +75,18 @@ class LogCleanerPluginTest {
     fun activateLogCleaner() {
         //WHEN
         val mockLog: Logger = mock()
-        val mockedThread: LogCleanerThread = mock()
-        val pluginToTest: LogCleanerPlugin = mock()
-        pluginToTest.logger = mockLog
-        pluginToTest.logCleanerThread = mockedThread
-
-        `when`(pluginToTest.activateLogCleaner()).thenCallRealMethod()
+        val mockedRunnable: LogCleanerRunnable = mock()
+        val pluginToTest: LogCleanerPlugin = mock {
+            on { activateLogCleaner() }.thenCallRealMethod()
+        }
+        pluginToTest.pluginLogger = mockLog
+        pluginToTest.logCleanerRunnable = mockedRunnable
 
         //THEN
         pluginToTest.activateLogCleaner()
 
         //VERIFY
-        verify(mockedThread).setNow(ArgumentMatchers.any(Date::class.java))
-        verify(mockedThread).start()
+        verify(mockedRunnable).setNow(argThat { javaClass == Date::class.java })
+        verify(mockedRunnable).run()
     }
 }
