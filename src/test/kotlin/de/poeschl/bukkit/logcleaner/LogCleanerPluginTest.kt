@@ -5,6 +5,7 @@ import de.poeschl.bukkit.logcleaner.helper.FileHelper
 import de.poeschl.bukkit.logcleaner.managers.SettingsManager
 import de.poeschl.bukkit.logcleaner.threads.LogCleanerRunnable
 import de.poeschl.bukkit.logcleaner.utils.InstanceFactory
+import org.assertj.core.api.Assertions
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.plugin.PluginDescriptionFile
 import org.junit.Test
@@ -20,24 +21,19 @@ class LogCleanerPluginTest {
         val mockedConfig: FileConfiguration = mock {
             on { getKeys(any()) } doReturn setOf("dummy")
         }
-        val mockedInstances: InstanceFactory = mock {
-            on { createSettingsManager(any(), any()) } doReturn mock<SettingsManager>()
-            on { getLogger(any()) } doReturn mock<Logger>()
-            on { createFileHelper(any()) } doReturn mock<FileHelper>()
-            on { createLogCleanerRunnable(any(), any(), any()) } doReturn mock<LogCleanerRunnable>()
-        }
 
         val pluginToTest: LogCleanerPlugin = mock {
             on { config } doReturn mockedConfig
-            on { createInstanceFactory() } doReturn mockedInstances
             on { info } doReturn PluginDescriptionFile("", "", "")
             on { onEnable() }.thenCallRealMethod()
         }
+        pluginToTest.pluginLogger = mock()
 
         //THEN
         pluginToTest.onEnable()
 
         //VERIFY
+        verify(pluginToTest).initFields()
         verify(pluginToTest).activateLogCleaner()
         verify(pluginToTest, never()).saveDefaultConfig()
     }
@@ -49,24 +45,19 @@ class LogCleanerPluginTest {
     fun onEnableFirstTime() {
         //WHEN
         val mockedConfig: FileConfiguration = mock()
-        val mockedInstances: InstanceFactory = mock {
-            on { createSettingsManager(any(), any()) } doReturn mock<SettingsManager>()
-            on { getLogger(any()) } doReturn mock<Logger>()
-            on { createFileHelper(any()) } doReturn mock<FileHelper>()
-            on { createLogCleanerRunnable(any(), any(), any()) } doReturn mock<LogCleanerRunnable>()
-        }
 
         val pluginToTest: LogCleanerPlugin = mock {
             on { config } doReturn mockedConfig
-            on { createInstanceFactory() } doReturn mockedInstances
             on { info } doReturn PluginDescriptionFile("", "", "")
             on { onEnable() }.thenCallRealMethod()
         }
+        pluginToTest.pluginLogger = mock()
 
         //THEN
         pluginToTest.onEnable()
 
         //VERIFY
+        verify(pluginToTest).initFields()
         verify(pluginToTest).activateLogCleaner()
         verify(pluginToTest).saveDefaultConfig()
     }
@@ -88,5 +79,35 @@ class LogCleanerPluginTest {
         //VERIFY
         verify(mockedRunnable).setNow(argThat { javaClass == Date::class.java })
         verify(mockedRunnable).run()
+    }
+
+    @Test
+    fun initFieldsOfLogCleaner() {
+        //WHEN
+        val mockedInstances = createMockedInstanceFactory()
+        val pluginToTest: LogCleanerPlugin = mock {
+            on { initFields() }.thenCallRealMethod()
+            on { createInstanceFactory() } doReturn mockedInstances
+            on { config } doReturn mock<FileConfiguration>()
+        }
+
+        //THEN
+        pluginToTest.initFields()
+
+        //VERIFY
+        Assertions.assertThat(pluginToTest.instanceFactory).isNotNull()
+        Assertions.assertThat(pluginToTest.pluginLogger).isNotNull()
+        Assertions.assertThat(pluginToTest.settingManager).isNotNull()
+        Assertions.assertThat(pluginToTest.fileHelper).isNotNull()
+        Assertions.assertThat(pluginToTest.logCleanerRunnable).isNotNull()
+    }
+
+    private fun createMockedInstanceFactory(): InstanceFactory {
+        return mock {
+            on { createSettingsManager(any(), any()) } doReturn mock<SettingsManager>()
+            on { getLogger(any()) } doReturn mock<Logger>()
+            on { createFileHelper(any()) } doReturn mock<FileHelper>()
+            on { createLogCleanerRunnable(any(), any(), any()) } doReturn mock<LogCleanerRunnable>()
+        }
     }
 }

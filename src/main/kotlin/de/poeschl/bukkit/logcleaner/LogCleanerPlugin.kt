@@ -12,10 +12,10 @@ import java.util.logging.Logger
 
 open class LogCleanerPlugin : JavaPlugin() {
 
-    private var instanceFactory: InstanceFactory? = null
+    internal var instanceFactory: InstanceFactory? = null
     internal var pluginLogger: Logger? = null
-    private var settingManager: SettingsManager? = null
-    private var fileHelper: FileHelper? = null
+    internal var settingManager: SettingsManager? = null
+    internal var fileHelper: FileHelper? = null
     internal var logCleanerRunnable: LogCleanerRunnable? = null
 
     override fun onEnable() {
@@ -26,13 +26,9 @@ open class LogCleanerPlugin : JavaPlugin() {
             config
             saveDefaultConfig()
         }
-        instanceFactory = createInstanceFactory()
-        pluginLogger = instanceFactory?.getLogger(this)
-        settingManager = instanceFactory?.createSettingsManager(config, pluginLogger!!)
-        fileHelper = instanceFactory?.createFileHelper(pluginLogger!!)
-        logCleanerRunnable = instanceFactory?.createLogCleanerRunnable(fileHelper!!, settingManager!!, LOG_FOLDER)
+        initFields()
 
-        pluginLogger?.info(pdfFile.name + " version " + pdfFile.version + " is enabled!")
+        pluginLogger!!.info(pdfFile.name + " version " + pdfFile.version + " is enabled!")
 
         activateLogCleaner()
     }
@@ -40,13 +36,21 @@ open class LogCleanerPlugin : JavaPlugin() {
     open internal val info: PluginDescriptionFile
         get() = description
 
+    open internal fun initFields() {
+        instanceFactory = createInstanceFactory()
+        pluginLogger = instanceFactory!!.getLogger(this)
+        settingManager = instanceFactory!!.createSettingsManager(config, pluginLogger!!)
+        fileHelper = instanceFactory!!.createFileHelper(pluginLogger!!)
+        logCleanerRunnable = instanceFactory!!.createLogCleanerRunnable(fileHelper!!, settingManager!!, LOG_FOLDER)
+    }
+
     open internal fun createInstanceFactory(): InstanceFactory {
         return InstanceFactory()
     }
 
     open internal fun activateLogCleaner() {
-        pluginLogger?.info("Starting LogCleanerPlugin Thread")
-        logCleanerRunnable?.setNow(Date())
+        pluginLogger!!.info("Starting LogCleanerPlugin Thread")
+        logCleanerRunnable!!.setNow(Date())
         Thread(logCleanerRunnable).start()
     }
 
