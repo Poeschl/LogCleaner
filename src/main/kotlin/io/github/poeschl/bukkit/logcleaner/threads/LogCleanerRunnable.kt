@@ -1,7 +1,7 @@
-package de.poeschl.bukkit.logcleaner.threads
+package io.github.poeschl.bukkit.logcleaner.threads
 
 
-import de.poeschl.bukkit.logcleaner.helper.FileHelper
+import io.github.poeschl.bukkit.logcleaner.helper.FileHelper
 import java.io.File
 import java.util.*
 import java.util.concurrent.TimeUnit

@@ -1,4 +1,4 @@
-package de.poeschl.bukkit.logcleaner
+package io.github.poeschl.bukkit.logcleaner
 
 import java.util.*
 

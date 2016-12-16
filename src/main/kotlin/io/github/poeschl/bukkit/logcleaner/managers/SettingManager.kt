@@ -1,6 +1,6 @@
-package de.poeschl.bukkit.logcleaner.managers
+package io.github.poeschl.bukkit.logcleaner.managers
 
-import de.poeschl.bukkit.logcleaner.managers.SettingsManager.Companion.KEEP_DAYS_KEY
+import io.github.poeschl.bukkit.logcleaner.managers.SettingsManager.Companion.KEEP_DAYS_KEY
 import org.bukkit.configuration.file.FileConfiguration
 
 import java.util.logging.Logger

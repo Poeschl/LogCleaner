@@ -1,4 +1,4 @@
-package de.poeschl.bukkit.logcleaner.helper
+package io.github.poeschl.bukkit.logcleaner.helper
 
 import java.io.File
 import java.io.FilenameFilter

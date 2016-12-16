@@ -1,9 +1,9 @@
-package de.poeschl.bukkit.logcleaner
+package io.github.poeschl.bukkit.logcleaner
 
-import de.poeschl.bukkit.logcleaner.helper.FileHelper
-import de.poeschl.bukkit.logcleaner.managers.SettingsManager
-import de.poeschl.bukkit.logcleaner.threads.LogCleanerRunnable
-import de.poeschl.bukkit.logcleaner.utils.InstanceFactory
+import io.github.poeschl.bukkit.logcleaner.helper.FileHelper
+import io.github.poeschl.bukkit.logcleaner.managers.SettingsManager
+import io.github.poeschl.bukkit.logcleaner.threads.LogCleanerRunnable
+import io.github.poeschl.bukkit.logcleaner.utils.InstanceFactory
 import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File

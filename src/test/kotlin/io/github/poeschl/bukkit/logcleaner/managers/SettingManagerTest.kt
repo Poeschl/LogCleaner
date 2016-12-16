@@ -1,4 +1,4 @@
-package de.poeschl.bukkit.logcleaner.managers
+package io.github.poeschl.bukkit.logcleaner.managers
 
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock

@@ -1,4 +1,4 @@
 name: @name@
-main: de.poeschl.bukkit.logcleaner.LogCleanerPlugin
+main: io.github.poeschl.bukkit.logcleaner.LogCleanerPlugin
 version: @version@
 commands:

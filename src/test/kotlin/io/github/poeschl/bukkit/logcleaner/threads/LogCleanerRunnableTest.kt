@@ -1,8 +1,8 @@
-package de.poeschl.bukkit.logcleaner.threads
+package io.github.poeschl.bukkit.logcleaner.threads
 
 import com.nhaarman.mockito_kotlin.*
-import de.poeschl.bukkit.logcleaner.createDate
-import de.poeschl.bukkit.logcleaner.helper.FileHelper
+import io.github.poeschl.bukkit.logcleaner.createDate
+import io.github.poeschl.bukkit.logcleaner.helper.FileHelper
 import org.junit.Test
 import java.io.File
 import java.util.*

@@ -1,10 +1,10 @@
-package de.poeschl.bukkit.logcleaner
+package io.github.poeschl.bukkit.logcleaner
 
 import com.nhaarman.mockito_kotlin.*
-import de.poeschl.bukkit.logcleaner.helper.FileHelper
-import de.poeschl.bukkit.logcleaner.managers.SettingsManager
-import de.poeschl.bukkit.logcleaner.threads.LogCleanerRunnable
-import de.poeschl.bukkit.logcleaner.utils.InstanceFactory
+import io.github.poeschl.bukkit.logcleaner.helper.FileHelper
+import io.github.poeschl.bukkit.logcleaner.managers.SettingsManager
+import io.github.poeschl.bukkit.logcleaner.threads.LogCleanerRunnable
+import io.github.poeschl.bukkit.logcleaner.utils.InstanceFactory
 import org.assertj.core.api.Assertions
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.plugin.PluginDescriptionFile

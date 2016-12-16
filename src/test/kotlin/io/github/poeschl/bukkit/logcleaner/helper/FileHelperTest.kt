@@ -1,10 +1,10 @@
-package de.poeschl.bukkit.logcleaner.helper
+package io.github.poeschl.bukkit.logcleaner.helper
 
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
-import de.poeschl.bukkit.logcleaner.createDate
+import io.github.poeschl.bukkit.logcleaner.createDate
 import org.assertj.core.api.Assertions
 import org.assertj.core.util.DateUtil
 import org.junit.Test
